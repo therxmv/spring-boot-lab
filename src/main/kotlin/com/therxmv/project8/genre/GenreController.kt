@@ -1,5 +1,6 @@
 package com.therxmv.project8.genre
 
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.RestController
 class GenreController(
     private val genreService: GenreService
 ) {
+    private val logger = LoggerFactory.getLogger(GenreController::class.java)
+
     @GetMapping
     fun getAll() = try {
         ResponseEntity(genreService.getAll(), HttpStatus.OK)
     } catch (e: Exception) {
-        e.printStackTrace()
+        logger.error(e.stackTraceToString())
         ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
@@ -31,7 +34,7 @@ class GenreController(
             ResponseEntity(it, HttpStatus.OK)
         } ?: ResponseEntity("Item with id $id not found", HttpStatus.NOT_FOUND)
     } catch (e: Exception) {
-        e.printStackTrace()
+        logger.error(e.stackTraceToString())
         ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
@@ -39,7 +42,7 @@ class GenreController(
     fun add(@RequestBody genre: GenreEntity) = try {
         ResponseEntity(genreService.add(genre), HttpStatus.OK)
     } catch (e: Exception) {
-        e.printStackTrace()
+        logger.error(e.stackTraceToString())
         ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
@@ -47,25 +50,25 @@ class GenreController(
     fun update(@PathVariable id: Int, @RequestBody genre: GenreEntity) = try {
         ResponseEntity(genreService.update(id, genre), HttpStatus.OK)
     } catch (e: Exception) {
-        e.printStackTrace()
+        logger.error(e.stackTraceToString())
         ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
     @PatchMapping("{id}")
     fun update(@PathVariable id: Int, @RequestBody partialGenre: Map<String, Any>): ResponseEntity<Any> {
-        var genre = genreService.getByIndex(id) ?: return ResponseEntity("Item with id $id not found", HttpStatus.NOT_FOUND)
-
-        partialGenre.forEach { (key, value) ->
-            when(key) {
-                "name" -> genre = genre.copy(name = value as String)
-                "libraryId" -> genre = genre.copy(libraryId = value as Int)
-            }
-        }
-
         return try {
+            var genre = genreService.getByIndex(id) ?: return ResponseEntity("Item with id $id not found", HttpStatus.NOT_FOUND)
+
+            partialGenre.forEach { (key, value) ->
+                when(key) {
+                    "name" -> genre = genre.copy(name = value as String)
+                    "libraryId" -> genre = genre.copy(libraryId = value as Int)
+                }
+            }
+
             ResponseEntity(genreService.update(genre), HttpStatus.OK)
         } catch (e: Exception) {
-            e.printStackTrace()
+            logger.error(e.stackTraceToString())
             ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
@@ -73,10 +76,11 @@ class GenreController(
     @DeleteMapping("{id}")
     fun remove(@PathVariable id: Int) = try {
         if(genreService.getByIndex(id) != null) {
-            ResponseEntity(genreService.remove(id), HttpStatus.OK)
+            genreService.remove(id)
+            ResponseEntity("Item with id $id deleted", HttpStatus.OK)
         } else ResponseEntity("Item with id $id not found", HttpStatus.NOT_FOUND)
     } catch (e: Exception) {
-        e.printStackTrace()
+        logger.error(e.stackTraceToString())
         ResponseEntity(e.message, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 }
