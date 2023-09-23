@@ -1,7 +1,6 @@
 package com.therxmv.project8.genre
 
-import com.therxmv.project8.library.LibraryService
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.springframework.http.HttpStatus
