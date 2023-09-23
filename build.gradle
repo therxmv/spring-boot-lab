@@ -8,6 +8,8 @@ plugins {
 	id 'org.jetbrains.kotlin.plugin.jpa' version '1.8.22'
 }
 
+apply plugin: 'jacoco'
+
 group = 'com.therxmv'
 version = '0.0.1-SNAPSHOT'
 
@@ -41,4 +43,21 @@ tasks.withType(KotlinCompile) {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+test {
+	finalizedBy(tasks.jacocoTestReport)
+}
+
+jacoco {
+	toolVersion = "0.8.7"
+}
+
+jacocoTestReport {
+	dependsOn(tasks.test)
+	reports {
+		xml.enabled false
+		html.enabled true
+		csv.enabled true
+	}
 }

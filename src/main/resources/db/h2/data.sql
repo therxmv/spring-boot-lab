@@ -9,18 +9,18 @@ INSERT INTO genres (name, library_id) VALUES
     ('Thriller', 2);
 
 INSERT INTO books (name, author, pages, genre_id) VALUES
-    ('Fantasy Book 1', 'Fantasy Author 1', 300, 1),
-    ('Fantasy Book 2', 'Fantasy Author 2', 400, 1),
-    ('Fantasy Book 3', 'Fantasy Author 3', 350, 1),
-    ('Science Fiction Book 1', 'SF Author 1', 320, 2),
-    ('Science Fiction Book 2', 'SF Author 2', 280, 2),
-    ('Science Fiction Book 3', 'SF Author 3', 410, 2),
-    ('Mystery Book 1', 'Mystery Author 1', 250, 3),
-    ('Mystery Book 2', 'Mystery Author 2', 320, 3),
-    ('Mystery Book 3', 'Mystery Author 3', 290, 3),
-    ('Romance Book 1', 'Romance Author 1', 280, 4),
-    ('Romance Book 2', 'Romance Author 2', 310, 4),
-    ('Romance Book 3', 'Romance Author 3', 270, 4),
-    ('Thriller Book 1', 'Thriller Author 1', 340, 5),
-    ('Thriller Book 2', 'Thriller Author 2', 380, 5),
-    ('Thriller Book 3', 'Thriller Author 3', 310, 5);
+    ('The Hobbit', 'J.R.R. Tolkien', 310, 1),
+    ('Harry Potter and the Sorcerer''s Stone', 'J.K. Rowling', 320, 1),
+    ('A Game of Thrones', 'George R.R. Martin', 694, 1),
+    ('Dune', 'Frank Herbert', 412, 2),
+    ('Neuromancer', 'William Gibson', 271, 2),
+    ('Snow Crash', 'Neal Stephenson', 470, 2),
+    ('Sherlock Holmes: The Hound of the Baskervilles', 'Arthur Conan Doyle', 190, 3),
+    ('Gone Girl', 'Gillian Flynn', 432, 5),
+    ('The Girl on the Train', 'Paula Hawkins', 336, 5),
+    ('Pride and Prejudice', 'Jane Austen', 432, 4),
+    ('To Kill a Mockingbird', 'Harper Lee', 281, 3),
+    ('The Notebook', 'Nicholas Sparks', 214, 4),
+    ('The Da Vinci Code', 'Dan Brown', 489, 5),
+    ('The Silent Patient', 'Alex Michaelides', 336, 3),
+    ('The Girl with the Dragon Tattoo', 'Stieg Larsson', 480, 5);
